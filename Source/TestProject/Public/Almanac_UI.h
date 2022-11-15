@@ -13,4 +13,10 @@ UCLASS()
 class TESTPROJECT_API UAlmanac_UI : public UUserWidget
 {
 	GENERATED_BODY()
+protected:
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+		class UButton* Btn_Exit;
+	virtual void NativeConstruct() override;
+	UFUNCTION()
+		void Event_OnExit();
 };

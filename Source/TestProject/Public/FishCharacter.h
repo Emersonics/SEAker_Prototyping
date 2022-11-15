@@ -14,6 +14,7 @@
 
 #include "FishCharacter.generated.h"
 
+class ASEAker_GM_cpp;
 UCLASS()
 class TESTPROJECT_API AFishCharacter : public ACharacter
 {
@@ -71,6 +72,7 @@ public:
 		void SetCollisionCapsuleRadius(float Value);
 
 protected:
+	UPROPERTY(BlueprintReadWrite) ASEAker_GM_cpp* gm;
 	UPROPERTY(BlueprintReadWrite) FVector2D crossHairScreenLoc;
 	UPROPERTY(BlueprintReadWrite) bool canInteract = false;
 	UPROPERTY(BlueprintReadWrite) AActor* collidedActor = nullptr;

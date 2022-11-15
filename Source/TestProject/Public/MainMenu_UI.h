@@ -13,7 +13,6 @@ UCLASS()
 class TESTPROJECT_API UMainMenu_UI : public UUserWidget
 {
 	GENERATED_BODY()
-
 protected:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 		class UButton* Btn_Levels;

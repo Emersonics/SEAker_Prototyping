@@ -36,7 +36,7 @@ public:
 		void AddMainMenuToVP();
 	UFUNCTION(BlueprintCallable)
 		void AddHUDToVP();
-protected:
+public:
 	virtual void BeginPlay() override;
 	UPROPERTY(EditAnywhere, Category = "Class Types")
 		TSubclassOf<UUserWidget> Almanac_Class;

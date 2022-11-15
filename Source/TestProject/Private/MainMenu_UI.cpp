@@ -3,6 +3,7 @@
 
 #include "MainMenu_UI.h"
 
+#include "SEAker_GM_cpp.h"
 #include "Components/Button.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -27,6 +28,7 @@ void UMainMenu_UI::NativeConstruct()
 void UMainMenu_UI::Event_OnLevels()
 {
 	UGameplayStatics::OpenLevel(this, "TemporaryLevel1Design");
+
 }
 
 void UMainMenu_UI::Event_OnQuit()

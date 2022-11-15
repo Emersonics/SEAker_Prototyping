@@ -2,7 +2,11 @@
 
 #include "FishCharacter.h"
 
+#include "GameScene_HUD.h"
+#include "SEAker_GM_cpp.h"
+#include "Blueprint/SlateBlueprintLibrary.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/Image.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 
@@ -29,7 +33,10 @@ void AFishCharacter::BeginPlay()
 
 	if(Actor_spawnListManager != nullptr)
 		spawnListManager = Actor_spawnListManager->FindComponentByClass<USpawnListManager>();
-
+	
+	gm = Cast<ASEAker_GM_cpp>(UGameplayStatics::GetGameMode(GetWorld()));
+	UE_LOG(LogTemp, Display, TEXT("GM is Cast"));
+	
 	// Set up values
 	//SetUpCharacterValues(this->currentPlayerCreatureType);
 }
@@ -49,8 +56,8 @@ void AFishCharacter::Tick(float DeltaTime)
 
 
 	
-	/*
 	bool hasHit = GetRayHitLocation();
+	/*
 	if (hasHit)
 	{
 		//UE_LOG(LogTemp, Display, TEXT("HIT!!!"));
@@ -59,13 +66,14 @@ void AFishCharacter::Tick(float DeltaTime)
 			UE_LOG(LogTemp, Display, TEXT("FISH DETECTED!!!"));
 		}
 	}
-
+	*/
+	
 	 
 	//UE_LOG(LogTemp, Display, TEXT("Fish1 is collected: %s"), almanac->getFishInfo(FISH1).isCollected ? TEXT("true") : TEXT("false"));
 	//UE_LOG(LogTemp, Display, TEXT("Fish2 is collected: %s"), almanac->getFishInfo(FISH2).isCollected ? TEXT("true") : TEXT("false"));
 	//UE_LOG(LogTemp, Display, TEXT("Fish3 is collected: %s"), almanac->getFishInfo(FISH3).isCollected ? TEXT("true") : TEXT("false"));
 	
-	*/
+	
 }
 
 // Called to bind functionality to input
@@ -188,16 +196,28 @@ void AFishCharacter::SetUpCharacterValues(PlayerCreatureType type)
 bool AFishCharacter::GetRayHitLocation()
 {
 	APlayerController* PC = GetWorld()->GetFirstPlayerController();
-	
-	if (PC != nullptr)
+
+	if (gm != nullptr || gm->HUDWidget != nullptr)
 	{
-		bool hasHit = PC->DeprojectScreenPositionToWorld(crossHairScreenLoc.X, crossHairScreenLoc.Y, latestCameraLoc, latestWorldDirection);
-		return hasHit;
+		UE_LOG(LogTemp, Display, TEXT("GM is Availalble"));
+		// update the crossHairScreenLoc
+		FGeometry geometry = gm->HUDWidget->CrossHair_Img->GetTickSpaceGeometry();
+		FVector2D localCoord;
+		FVector2D pixelPos;
+		FVector2D viewportPos;
+		USlateBlueprintLibrary::LocalToViewport(this, geometry, localCoord, pixelPos, viewportPos);
+		crossHairScreenLoc = pixelPos;
+		if (PC != nullptr)
+		{
+			bool hasHit = PC->DeprojectScreenPositionToWorld(crossHairScreenLoc.X, crossHairScreenLoc.Y, latestCameraLoc, latestWorldDirection);
+			return hasHit;
+		}
+		else
+		{
+			return false;
+		}
 	}
-	else
-	{
-		return false;
-	}
+	return false;
 }
 
 bool AFishCharacter::GetWorldPoint()
