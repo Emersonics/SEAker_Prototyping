@@ -43,7 +43,8 @@ void ASEAker_GM_cpp::AddAlmanacToVP()
 			UE_LOG(LogTemp, Warning, TEXT("Almanac Added to Viewport"));
 		}
 		APlayerController* PController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-		PController->SetInputMode(FInputModeUIOnly());
+		PController->SetShowMouseCursor(true);
+		PController->SetPause(true);
 	}
 }
 
@@ -59,7 +60,7 @@ void ASEAker_GM_cpp::AddMainMenuToVP()
 			UE_LOG(LogTemp, Warning, TEXT("MainMenu Added to Viewport"));
 		}
 		APlayerController* PController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-		PController->SetInputMode(FInputModeUIOnly());
+		PController->SetShowMouseCursor(true);
 	}
 }
 
@@ -76,6 +77,7 @@ void ASEAker_GM_cpp::AddHUDToVP()
 			UE_LOG(LogTemp, Warning, TEXT("HUD Added to Viewport"));
 		}
 		APlayerController* PController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-		PController->SetInputMode(FInputModeGameOnly());
+		PController->SetShowMouseCursor(false);
+		PController->SetPause(false);
 	}
 }

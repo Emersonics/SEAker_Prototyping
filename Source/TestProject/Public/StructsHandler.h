@@ -34,6 +34,7 @@ struct FPollution_Profile
 	FString description;
 };
 
+
 USTRUCT(BlueprintType)
 struct FGeneratedData
 {
