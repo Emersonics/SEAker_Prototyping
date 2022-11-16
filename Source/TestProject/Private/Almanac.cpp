@@ -5,9 +5,14 @@
 
 Almanac::Almanac()
 {
-	addToDictionary(FISH1);
-	addToDictionary(FISH2);
-	addToDictionary(FISH3);
+	addToDictionary(FishName::CLOWNFISH_AI);
+	addToDictionary(FishName::DECORATOR_CRAB);
+	addToDictionary(FishName::FINGERED_DRAGONET);
+	addToDictionary(FishName::HORSESHOE_CRAB);
+	addToDictionary(FishName::MANTIS_SHRIMP);
+	addToDictionary(FishName::SEAHORSE);
+	addToDictionary(FishName::SEA_URCHIN);
+	addToDictionary(FishName::STARFISH);
 }
 
 Almanac::~Almanac()

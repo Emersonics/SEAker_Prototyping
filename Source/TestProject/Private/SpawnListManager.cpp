@@ -32,13 +32,12 @@ void USpawnListManager::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
 	// ...
 
-	/*
-	 *REMOVE THIS IN TICK
-	if(check_if_fishMap_completed() == true)
+	if(fishMap.IsEmpty())
 	{
 		//do something
+
+		UE_LOG(LogTemp, Warning, TEXT("FISH MAP COMPLETED"));
 	}
-	*/
 	
 }
 
@@ -49,8 +48,13 @@ TMap<FishName, AAIFishCharacter*> USpawnListManager::getFishMap()
 
 void USpawnListManager::initializeFishMap()
 {
-	fishMap.Add(fishCopy->FindComponentByClass<UAAnimalAttrib>()->getID(), fishCopy);
-	fishMap.Add(fishCopy2->FindComponentByClass<UAAnimalAttrib>()->getID(), fishCopy2);
+	for (auto creature_in_list : fishList)
+	{
+		fishMap.Add(creature_in_list->FindComponentByClass<UAAnimalAttrib>()->getID(), creature_in_list);
+	}
+
+	//fishMap.Add(fishCopy->FindComponentByClass<UAAnimalAttrib>()->getID(), fishCopy);
+	//fishMap.Add(fishCopy2->FindComponentByClass<UAAnimalAttrib>()->getID(), fishCopy2);
 
 	/*
 	FVector spawnLocation = FVector(FMath::RandRange(-100.0f, 100.0f), 2720.000000, FMath::RandRange(50.0f, 400.0f));
@@ -78,7 +82,6 @@ bool USpawnListManager::check_if_fishMap_completed()
 
 	if (fishMap.IsEmpty())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("FISH MAP COMPLETED"));
 		return true;
 	}
 	else

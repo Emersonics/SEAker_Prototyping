@@ -154,14 +154,17 @@ void AFishCharacter::SetCollisionCapsuleRadius(float Value)
 
 void AFishCharacter::InteractWithFish()
 {
-	if(canInteract == true)
+	UAAnimalAttrib* animalAttrib = collidedActor->FindComponentByClass<UAAnimalAttrib>();
+
+	if(canInteract == true && currentGameInstance->almanac->getFishDictionaryRef()->Find(animalAttrib->getID())->isCollected == false)
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("WORKING"));
 		//UE_LOG(LogTemp, Warning, TEXT("%s"), *collidedActor->GetName());
-		UAAnimalAttrib* animalAttrib = collidedActor->FindComponentByClass<UAAnimalAttrib>();
+		
 		currentGameInstance->almanac->tickCollected(animalAttrib->getID());
 		currentGameInstance->almanac->ELastFishInteracted = animalAttrib->getID();
 		spawnListManager->check_if_fishMap_completed();
+		
 	}
 	
 }

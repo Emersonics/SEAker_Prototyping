@@ -39,8 +39,7 @@ public:
 
 private:
 	TMap <FishName, AAIFishCharacter*> fishMap;
-	UPROPERTY(EditAnywhere) AClownfish* fishCopy = nullptr;
-	UPROPERTY(EditAnywhere) AClownfish* fishCopy2 = nullptr;
+	UPROPERTY(EditAnywhere) TArray <AAIFishCharacter*> fishList;
 
 private:
 	void initializeFishMap();
